@@ -81,7 +81,7 @@ export const constantRouterMap = [
         name: 'IntellPDU',
         component: () => import('@/views/intellPDU/index'),
         meta: { title: '智能PDU', icon: 'PDU' }
-      },
+      }
     ]
   },
   {
@@ -93,7 +93,7 @@ export const constantRouterMap = [
         name: 'IntellFan',
         component: () => import('@/views/intellFan/index'),
         meta: { title: '智能风扇', icon: 'intellFanLogo' }
-      },
+      }
     ]
   },
   {
@@ -105,7 +105,7 @@ export const constantRouterMap = [
         name: 'netSwitch',
         component: () => import('@/views/netSwitch/index'),
         meta: { title: '网络交换机', icon: 'wljhj' }
-      },
+      }
     ]
   },
   {
@@ -117,7 +117,7 @@ export const constantRouterMap = [
         name: 'PBX',
         component: () => import('@/views/PBX/index'),
         meta: { title: '语音交换机', icon: 'PBXLogo' }
-      },
+      }
     ]
   },
   {
@@ -129,7 +129,7 @@ export const constantRouterMap = [
         name: 'DVRecorder',
         component: () => import('@/views/DVRecorder/index'),
         meta: { title: '硬盘录像机', icon: 'DVRecorder' }
-      },
+      }
     ]
   },
   {
@@ -141,7 +141,7 @@ export const constantRouterMap = [
         name: 'brodSys',
         component: () => import('@/views/brodSys/index'),
         meta: { title: '广播系统', icon: 'broSys' }
-      },
+      }
     ]
   },
   {
@@ -153,7 +153,7 @@ export const constantRouterMap = [
         name: 'weather',
         component: () => import('@/views/weather/index'),
         meta: { title: '气象', icon: 'weather' }
-      },
+      }
     ]
   },
 

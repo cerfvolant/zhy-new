@@ -1,14 +1,14 @@
 <template>
   <div class="app-container clea">
-    <el-col class="section" id="detactor-section">
+    <el-col id="detactor-section" class="section">
       <div class="section-title">
         <svg-icon class="svg-logo" icon-class="ygLogo" />
         <span>烟雾情况</span>
       </div>
       <div class="section-info detactor-info">
         <svg-icon class="detactor-img" icon-class="ygLogo" />
-        <svg-icon class="detactor-icon" :icon-class="ygIcon" />
-        <h1 class="detactor-status">{{ygStatus}}</h1>
+        <svg-icon :icon-class="ygIcon" class="detactor-icon" />
+        <h1 class="detactor-status">{{ ygStatus }}</h1>
       </div>
     </el-col>
   </div>

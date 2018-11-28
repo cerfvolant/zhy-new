@@ -37,7 +37,7 @@
           </div-->
           </el-form>
         </el-col>
-        <el-col :span="12" class="login-bg"></el-col>
+        <el-col :span="12" class="login-bg"/>
       </el-row>
     </div>
   </div>

@@ -3,110 +3,111 @@
     <!--<div class="home-text">name:{{ name }}</div>-->
     <!--<div class="home-text">roles:<span v-for="role in roles" :key="role">{{ role }}</span></div>-->
     <!--1、wet-temperature-sensor-->
-    <el-col class="section home-section" :span="7">
+    <el-col :span="7" class="section home-section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="wenshidu"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="wenshidu"/>
         <span>机柜平均温湿度</span>
       </div>
-      <div class="section-info clearfix" id="senser-block">
-        <div id="batcher" :style="{width: '50%', height: '300px', position: 'absolute'}"></div>
-        <div id="batcher2" :style="{width: '50%', height: '300px', position: 'absolute'}"></div>
+      <div id="senser-block" class="section-info clearfix">
+        <div id="batcher" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
+        <div id="batcher2" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
       </div>
     </el-col>
     <!--2、weather-->
-    <el-col class="section home-section" :span="9">
+    <el-col :span="9" class="section home-section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="weather"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="weather"/>
         <span>气象</span>
       </div>
       <div class="section-info clearfix">
-        <div id="campus" :style="{width: '100%',height: '300px'}"></div>
+        <div id="campus" :style="{width: '100%',height: '300px'}"/>
       </div>
     </el-col>
     <!--3、smoke-detactor-->
-    <el-col class="section home-section" :span="7">
+    <el-col :span="7" class="section home-section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="ygLogo"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="ygLogo"/>
         <span>烟感状态</span>
       </div>
-      <div class="section-info clearfix" id="yg-sec">
-        <svg-icon class="yg-icon" icon-class="ygNormal"></svg-icon>
-        <p>{{ygStatus}}</p>
+      <div id="yg-sec" class="section-info clearfix">
+        <svg-icon class="yg-icon" icon-class="ygNormal"/>
+        <p>{{ ygStatus }}</p>
       </div>
     </el-col>
     <!--4、intellPDU-->
-    <el-col class="section home-section" :span="10">
-      <div class="section-title" id="intellPDU-Title">
-        <svg-icon class="svg-logo svg-PDU" icon-class="PDU"></svg-icon>
+    <el-col :span="10" class="section home-section">
+      <div id="intellPDU-Title" class="section-title">
+        <svg-icon class="svg-logo svg-PDU" icon-class="PDU"/>
         <span>智能PDU</span>
       </div>
-      <div class="section-info clearfix" id="intellPDU-info">
+      <div id="intellPDU-info" class="section-info clearfix">
         <el-col id="progress-wrap" :span="16">
-          <div class="prof-item" v-for="item in intellPDUProgress">
-            <el-col :span="7" class="prof-title">{{item.profTitle}}</el-col>
+          <div v-for="item in intellPDUProgress" :key="item.object" class="prof-item">
+            <el-col :span="7" class="prof-title">{{ item.profTitle }}</el-col>
             <el-col :span="9" class="progress-box">
-              <el-progress class="progress-item" :color="item.progressBgColor" :percentage="item.progPercentage" :show-text="false"></el-progress>
+              <el-progress :color="item.progressBgColor" :percentage="item.progPercentage" :show-text="false" class="progress-item"/>
             </el-col>
-            <el-col :span="8" class="progress-value"><span :class="item.progValueColor">{{item.progressValue}}</span> <i>{{item.progressUnit}}</i></el-col>
+            <el-col :span="8" class="progress-value"><span :class="item.progValueColor">{{ item.progressValue }}</span> <i>{{ item.progressUnit }}</i></el-col>
           </div>
         </el-col>
         <el-col id="pdu-right" :span="8">
-          <div class="pdu-connect-num">连接设备数量：<span>{{PDUConnectNum}}</span></div>
+          <div class="pdu-connect-num">连接设备数量：<span>{{ PDUConnectNum }}</span></div>
           <div class="pdu-port-utilization">
-            <el-progress id="pdu-ratio-chart" type="circle" :percentage="75"></el-progress>
+            <el-progress id="pdu-ratio-chart" :percentage="75" type="circle"/>
             <span>端口占用率</span>
           </div>
         </el-col>
       </div>
     </el-col>
     <!--5、intellFan-->
-    <el-col class="section home-section" :span="7">
+    <el-col :span="7" class="section home-section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="intellFanLogo"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
         <span>智能风扇</span>
       </div>
-      <div class="section-info clearfix" id="fan-sec">
-        <p class="fan-mode">当前风扇模式：<span>{{intFanMode}}</span></p>
+      <div id="fan-sec" class="section-info clearfix">
+        <p class="fan-mode">当前风扇模式：<span>{{ intFanMode }}</span></p>
         <p>风扇转速等级：</p>
-        <el-col id="fan-item" v-for="item in fanStatus" :span="8">
-          <svg-icon class="fan-logo" icon-class="fanDynamic"></svg-icon>
-          <p>{{item.intFanGrade}}级</p>
+        <el-col v-for="item in fanStatus" id="fan-item" :span="8" :key="item.object">
+          <svg-icon class="fan-logo" icon-class="fanDynamic"/>
+          <p>{{ item.intFanGrade }}级</p>
         </el-col>
       </div>
     </el-col>
     <!--6、warning-->
-    <el-col class="section home-section" :span="6">
-      <div class="section-title" id="tip-title">
+    <el-col :span="6" class="section home-section">
+      <div id="tip-title" class="section-title">
         <el-col id="tip-title-left" :span="14">
-          <svg-icon class="svg-logo" id="svg-logo" icon-class="warning"></svg-icon>
+          <svg-icon id="svg-logo" class="svg-logo" icon-class="warning"/>
           <span>历史告警条目</span>
         </el-col>
-        <el-col id="tip-time" :span="9">{{tipDate}}</el-col>
+        <el-col id="tip-time" :span="9">{{ tipDate }}</el-col>
       </div>
-      <div class="section-info clearfix" id="warning-info">
+      <div id="warning-info" class="section-info clearfix">
         <ul>
-          <li v-for="item in warningItem">
-            <el-col class="warning-left" :span="11">
-              <svg-icon class="tip-icon" icon-class="tipIcon"></svg-icon>
-              <span>{{item.tipTime}}</span>
+          <li v-for="item in warningItem" :key="item.object">
+            <el-col :span="11" class="warning-left">
+              <svg-icon class="tip-icon" icon-class="tipIcon"/>
+              <span>{{ item.tipTime }}</span>
             </el-col>
-            <el-col class="warning-right" :span="13">
-              <span>{{item.tipName}}</span>{{item.tipNameStatus}}
+            <el-col :span="13" class="warning-right">
+              <span>{{ item.tipName }}</span>{{ item.tipNameStatus }}
             </el-col>
           </li>
         </ul>
       </div>
     </el-col>
+    <el-button type="primary">按钮</el-button>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-let echarts = require('echarts/lib/echarts');
+const echarts = require('echarts/lib/echarts')
 
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       ygStatus: '正常',
       intellPDUProgress: [
@@ -115,7 +116,7 @@ export default {
           progPercentage: 52,
           progressBgColor: '#00ffff',
           progressValue: '250',
-          progValueColor:'voltage-value-color',
+          progValueColor: 'voltage-value-color',
           progressUnit: 'V'
         },
         {
@@ -123,7 +124,7 @@ export default {
           progPercentage: 40,
           progressBgColor: '#ffff00',
           progressValue: '2.0',
-          progValueColor:'current-value-color',
+          progValueColor: 'current-value-color',
           progressUnit: 'A'
         },
         {
@@ -131,7 +132,7 @@ export default {
           progPercentage: 52,
           progressBgColor: '#5245ff',
           progressValue: '2.0',
-          progValueColor:'power-value-color',
+          progValueColor: 'power-value-color',
           progressUnit: 'kw'
         },
         {
@@ -139,7 +140,7 @@ export default {
           progPercentage: 40,
           progressBgColor: '#00ff7e',
           progressValue: '60',
-          progValueColor:'frequency-value-color',
+          progValueColor: 'frequency-value-color',
           progressUnit: 'Hz'
         },
         {
@@ -147,7 +148,7 @@ export default {
           progPercentage: 57,
           progressBgColor: '#ff7815',
           progressValue: '250',
-          progValueColor:'eleEnergy-value-color',
+          progValueColor: 'eleEnergy-value-color',
           progressUnit: 'kw•h'
         }
       ],
@@ -199,39 +200,44 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'name',
+      'roles'
+    ])
+  },
   mounted() {
-    this.batcherBox();
-    this.batcherBox2();
-    this.campusInfo();
+    this.batcherBox()
+    this.batcherBox2()
+    this.campusInfo()
   },
   methods: {
     batcherBox() {
-      let batcher = echarts.init(document.getElementById("batcher"));
-      var TP_value = 26;  //===>>温度的值
-      var kd = [];
-      var Gradient = [];
-      var leftColor = '';
-      var showValue = '';
-      var boxPosition = [45, 0];   //===>> 文字与温度计的间距
+      const batcher = echarts.init(document.getElementById('batcher'))
+      var TP_value = 26//  ===>>温度的值
+      var kd = []
+      var Gradient = []
+      var leftColor = ''
+      var showValue = ''
+      var boxPosition = [45, 0]//  ===>> 文字与温度计的间距
       var TP_txt = ''
       // 刻度使用柱状图模拟，短设置1，长的设置3；构造一个数据
-      for(var i = 0, len = 135; i <= len; i++) {
-        if(i < 10 || i > 130) {
+      for (var i = 0, len = 135; i <= len; i++) {
+        if (i < 10 || i > 130) {
           kd.push('')
         } else {
-          if((i - 10) % 20 === 0) {
-            kd.push('-3');
-          } else if((i - 10) % 4 === 0) {
-            kd.push('-1');
+          if ((i - 10) % 20 === 0) {
+            kd.push('-3')
+          } else if ((i - 10) % 4 === 0) {
+            kd.push('-1')
           } else {
-            kd.push('');
+            kd.push('')
           }
         }
-
       }
-      //中间线的渐变色和文本内容
-      if(TP_value > 20) {
-        TP_txt = '温度';
+      // 中间线的渐变色和文本内容
+      if (TP_value > 20) {
+        TP_txt = '温度'
         Gradient.push({
           offset: 0,
           color: '#ff0048'
@@ -242,8 +248,8 @@ export default {
           offset: 1,
           color: '#ff0048'
         })
-      } else if(TP_value > -20) {
-        TP_txt = '温度';
+      } else if (TP_value > -20) {
+        TP_txt = '温度'
         Gradient.push({
           offset: 0,
           color: '#ff0048'
@@ -252,25 +258,25 @@ export default {
           color: '#ff0048'
         })
       } else {
-        TP_txt = '温度';
+        TP_txt = '温度'
         Gradient.push({
           offset: 1,
           color: '#ff0048'
         })
       }
-      if(TP_value > 62) {
+      if (TP_value > 62) {
         showValue = 62
       } else {
-        if(TP_value < -60) {
+        if (TP_value < -60) {
           showValue = -60
         } else {
           showValue = TP_value
         }
       }
-      if(TP_value < -10) {
-        boxPosition = [65, -120];
+      if (TP_value < -10) {
+        boxPosition = [65, -120]
       }
-      leftColor = Gradient[Gradient.length - 1].color;
+      leftColor = Gradient[Gradient.length - 1].color
       // 因为柱状初始化为0，温度存在负值，所以加上负值60和空出距离10
       var option = {
         title: {
@@ -281,17 +287,17 @@ export default {
           show: false,
           data: [],
           min: 0,
-          max: 255,   //===>>温度计整体的高
+          max: 255, //  ===>>温度计整体的高
           axisLine: {
             show: false
           }
         }, {
           show: false,
           min: 0,
-          max: 50,
+          max: 50
         }, {
           type: 'category',
-//          data: ['', '', '', '', '', '', '', '', '', '', '°C'],
+          //   data: ['', '', '', '', '', '', '', '', '', '', '°C'],
           position: 'left',
           offset: -80,
           axisLabel: {
@@ -303,7 +309,7 @@ export default {
           },
           axisTick: {
             show: false
-          },
+          }
         }],
         xAxis: [{
           show: false,
@@ -323,8 +329,7 @@ export default {
         }, {
           show: false,
           min: -5,
-          max: 80,
-
+          max: 80
         }],
         series: [{
           name: '条',
@@ -341,20 +346,20 @@ export default {
                 height: 10,
                 formatter: '{back| ' + TP_value + ' }{unit|°C}\n{downTxt|' + TP_txt + '}',
                 rich: {
-                  back: { //===>>number
+                  back: {//  ===>>number
                     align: 'center',
                     lineHeight: 50,
                     fontSize: 18,
                     fontFamily: 'digifacewide',
                     color: leftColor
                   },
-                  unit: {  //===>>unit
+                  unit: {//  ===>>unit
                     fontFamily: '微软雅黑',
                     fontSize: 18,
                     lineHeight: 10,
                     color: leftColor
                   },
-                  downTxt: {  //===>>downText
+                  downTxt: {//  ===>>downText
                     lineHeight: 10,
                     fontSize: 12,
                     align: 'center',
@@ -365,7 +370,7 @@ export default {
             }
           }],
 
-          barWidth: 4,  //===>> 温度计最里面的最小条宽
+          barWidth: 4, //  ===>> 温度计最里面的最小条宽
           itemStyle: {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 1, 0, 0, Gradient)
@@ -378,11 +383,11 @@ export default {
           xAxisIndex: 1,
           barGap: '-100%',
           data: [134],
-          barWidth: 14,  //===>> 温度计里面的第二个条宽
+          barWidth: 14, //  ===>> 温度计里面的第二个条宽
           itemStyle: {
             normal: {
               color: '#ffffff',
-              barBorderRadius: 50,
+              barBorderRadius: 50
             }
           },
           z: 1
@@ -392,11 +397,11 @@ export default {
           xAxisIndex: 2,
           barGap: '-100%',
           data: [135],
-          barWidth: 16,  //===>> 温度计的最大条宽
+          barWidth: 16, //  ===>> 温度计的最大条宽
           itemStyle: {
             normal: {
               color: '#434343',
-              barBorderRadius: 50,
+              barBorderRadius: 50
             }
           },
           z: 0
@@ -406,11 +411,11 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 0,
-          symbolSize: 8,   //===>>温度计的最小的圆点
+          symbolSize: 8, //  ===>>温度计的最小的圆点
           itemStyle: {
             normal: {
               color: '#ff0048',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 2
@@ -420,11 +425,11 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 1,
-          symbolSize: 25,   //====>>温度计的第二个圆形
+          symbolSize: 25, //  ====>>温度计的第二个圆形
           itemStyle: {
             normal: {
               color: '#ffffff',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 1
@@ -434,83 +439,82 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 2,
-          symbolSize: 36,  //===>> 温度计的最大圆
+          symbolSize: 36, //  ===>> 温度计的最大圆
           itemStyle: {
             normal: {
               color: '#434343',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 0
         }
-//          {
-//            name: '刻度',
-//            type: 'bar',
-//            yAxisIndex: 0,
-//            xAxisIndex: 3,
-//            label: {
-//              normal: {
-//                show: true,
-//                position: 'left',
-//                distance: 10,
-//                color: 'white',
-//                fontSize: 12,
-//                formatter: function(params) {
-//                  if(params.dataIndex > 130 || params.dataIndex < 10) {
-//                    return '';
-//                  } else {
-//                    if((params.dataIndex - 10) % 20 === 0) {
-//                      return params.dataIndex - 70;
-//                    } else {
-//                      return '';
-//                    }
-//                  }
-//                }
-//              }
-//            },
-//            barGap: '-100%',
-//            data: kd,
-//            barWidth: 1,
-//            itemStyle: {
-//              normal: {
-//                color: 'white',
-//                barBorderRadius: 120,
-//              }
-//            },
-//            z: 0
-//          }
+        //          {
+        //            name: '刻度',
+        //            type: 'bar',
+        //            yAxisIndex: 0,
+        //            xAxisIndex: 3,
+        //            label: {
+        //              normal: {
+        //                show: true,
+        //                position: 'left',
+        //                distance: 10,
+        //                color: 'white',
+        //                fontSize: 12,
+        //                formatter: function(params) {
+        //                  if(params.dataIndex > 130 || params.dataIndex < 10) {
+        //                    return '';
+        //                  } else {
+        //                    if((params.dataIndex - 10) % 20 === 0) {
+        //                      return params.dataIndex - 70;
+        //                    } else {
+        //                      return '';
+        //                    }
+        //                  }
+        //                }
+        //              }
+        //            },
+        //            barGap: '-100%',
+        //            data: kd,
+        //            barWidth: 1,
+        //            itemStyle: {
+        //              normal: {
+        //                color: 'white',
+        //                barBorderRadius: 120,
+        //              }
+        //            },
+        //            z: 0
+        //          }
         ]
-      };
+      }
       // 使用刚指定的配置项和数据显示图表。
-      batcher.setOption(option);
+      batcher.setOption(option)
     },
     batcherBox2() {
-      let batcher2 = echarts.init(document.getElementById("batcher2"));
-      var TP_value = 40;  //===>>温度的值
-      var kd = [];
-      var Gradient = [];
-      var leftColor = '';
-      var showValue = '';
-      var boxPosition = [45, 0];
+      const batcher2 = echarts.init(document.getElementById('batcher2'))
+      var TP_value = 40//  ===>>温度的值
+      var kd = []
+      var Gradient = []
+      var leftColor = ''
+      var showValue = ''
+      var boxPosition = [45, 0]
       var TP_txt = ''
       // 刻度使用柱状图模拟，短设置1，长的设置3；构造一个数据
-      for(var i = 0, len = 135; i <= len; i++) {
-        if(i < 10 || i > 130) {
+      for (var i = 0, len = 135; i <= len; i++) {
+        if (i < 10 || i > 130) {
           kd.push('')
         } else {
-          if((i - 10) % 20 === 0) {
-            kd.push('-3');
-          } else if((i - 10) % 4 === 0) {
-            kd.push('-1');
+          if ((i - 10) % 20 === 0) {
+            kd.push('-3')
+          } else if ((i - 10) % 4 === 0) {
+            kd.push('-1')
           } else {
-            kd.push('');
+            kd.push('')
           }
         }
-
       }
-      //中间线的渐变色和文本内容
-      if(TP_value > 20) {
-        TP_txt = '湿度';
+      // 中间线的渐变色和文本内容
+      if (TP_value > 20) {
+        TP_txt = '湿度'
         Gradient.push({
           offset: 0,
           color: '#5245ff'
@@ -521,8 +525,8 @@ export default {
           offset: 1,
           color: '#5245ff'
         })
-      } else if(TP_value > -20) {
-        TP_txt = '湿度';
+      } else if (TP_value > -20) {
+        TP_txt = '湿度'
         Gradient.push({
           offset: 0,
           color: '#5245ff'
@@ -531,25 +535,25 @@ export default {
           color: '#5245ff'
         })
       } else {
-        TP_txt = '湿度';
+        TP_txt = '湿度'
         Gradient.push({
           offset: 1,
           color: '#5245ff'
         })
       }
-      if(TP_value > 62) {
+      if (TP_value > 62) {
         showValue = 62
       } else {
-        if(TP_value < -60) {
+        if (TP_value < -60) {
           showValue = -60
         } else {
           showValue = TP_value
         }
       }
-      if(TP_value < -10) {
-        boxPosition = [65, -120];
+      if (TP_value < -10) {
+        boxPosition = [65, -120]
       }
-      leftColor = Gradient[Gradient.length - 1].color;
+      leftColor = Gradient[Gradient.length - 1].color
       // 因为柱状初始化为0，温度存在负值，所以加上负值60和空出距离10
       var option = {
         title: {
@@ -560,17 +564,17 @@ export default {
           show: false,
           data: [],
           min: 0,
-          max: 255,   //===>>温度计整体的高
+          max: 255, //  ===>>温度计整体的高
           axisLine: {
             show: false
           }
         }, {
           show: false,
           min: 0,
-          max: 50,
+          max: 50
         }, {
           type: 'category',
-//          data: ['', '', '', '', '', '', '', '', '', '', '°C'],
+          //  data: ['', '', '', '', '', '', '', '', '', '', '°C'],
           position: 'left',
           offset: -80,
           axisLabel: {
@@ -582,7 +586,7 @@ export default {
           },
           axisTick: {
             show: false
-          },
+          }
         }],
         xAxis: [{
           show: false,
@@ -602,8 +606,7 @@ export default {
         }, {
           show: false,
           min: -5,
-          max: 80,
-
+          max: 80
         }],
         series: [{
           name: '条',
@@ -620,20 +623,20 @@ export default {
                 height: 10,
                 formatter: '{back| ' + TP_value + ' }{unit|%}\n{downTxt|' + TP_txt + '}',
                 rich: {
-                  back: { //===>>number
+                  back: {//  ===>>number
                     align: 'center',
                     lineHeight: 50,
                     fontSize: 18,
                     fontFamily: 'digifacewide',
                     color: leftColor
                   },
-                  unit: {  //===>>unit
+                  unit: {//  ===>>unit
                     fontFamily: '微软雅黑',
                     fontSize: 18,
                     lineHeight: 10,
                     color: leftColor
                   },
-                  downTxt: {  //===>>downText
+                  downTxt: {//  ===>>downText
                     lineHeight: 10,
                     fontSize: 12,
                     align: 'center',
@@ -643,8 +646,7 @@ export default {
               }
             }
           }],
-
-          barWidth: 4,  //===>> 温度计最里面的最小条宽
+          barWidth: 4, //  ===>> 温度计最里面的最小条宽
           itemStyle: {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 1, 0, 0, Gradient)
@@ -657,11 +659,11 @@ export default {
           xAxisIndex: 1,
           barGap: '-100%',
           data: [134],
-          barWidth: 12,  //===>> 温度计里面的第二个条宽
+          barWidth: 12, //  ===>> 温度计里面的第二个条宽
           itemStyle: {
             normal: {
               color: '#ffffff',
-              barBorderRadius: 50,
+              barBorderRadius: 50
             }
           },
           z: 1
@@ -671,11 +673,11 @@ export default {
           xAxisIndex: 2,
           barGap: '-100%',
           data: [135],
-          barWidth: 16,  //===>> 温度计的最大条宽
+          barWidth: 16, // ===>> 温度计的最大条宽
           itemStyle: {
             normal: {
               color: '#434343',
-              barBorderRadius: 50,
+              barBorderRadius: 50
             }
           },
           z: 0
@@ -685,11 +687,11 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 0,
-          symbolSize: 8,   //===>>温度计的最小的圆点
+          symbolSize: 8, //  ===>>温度计的最小的圆点
           itemStyle: {
             normal: {
               color: '#5245ff',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 2
@@ -699,11 +701,11 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 1,
-          symbolSize: 25,   //====>>温度计的第二个圆形
+          symbolSize: 25, //  ====>>温度计的第二个圆形
           itemStyle: {
             normal: {
               color: '#ffffff',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 1
@@ -713,67 +715,67 @@ export default {
           hoverAnimation: false,
           data: [0],
           xAxisIndex: 2,
-          symbolSize: 36,  //===>> 温度计的最大圆
+          symbolSize: 36, //  ===>> 温度计的最大圆
           itemStyle: {
             normal: {
               color: '#434343',
-              opacity: 1,
+              opacity: 1
             }
           },
           z: 0
         }
-//          {
-//            name: '刻度',
-//            type: 'bar',
-//            yAxisIndex: 0,
-//            xAxisIndex: 3,
-//            label: {
-//              normal: {
-//                show: true,
-//                position: 'left',
-//                distance: 10,
-//                color: 'white',
-//                fontSize: 12,
-//                formatter: function(params) {
-//                  if(params.dataIndex > 130 || params.dataIndex < 10) {
-//                    return '';
-//                  } else {
-//                    if((params.dataIndex - 10) % 20 === 0) {
-//                      return params.dataIndex - 70;
-//                    } else {
-//                      return '';
-//                    }
-//                  }
-//                }
-//              }
-//            },
-//            barGap: '-100%',
-//            data: kd,
-//            barWidth: 1,
-//            itemStyle: {
-//              normal: {
-//                color: 'white',
-//                barBorderRadius: 120,
-//              }
-//            },
-//            z: 0
-//          }
+        //          {
+        //            name: '刻度',
+        //            type: 'bar',
+        //            yAxisIndex: 0,
+        //            xAxisIndex: 3,
+        //            label: {
+        //              normal: {
+        //                show: true,
+        //                position: 'left',
+        //                distance: 10,
+        //                color: 'white',
+        //                fontSize: 12,
+        //                formatter: function(params) {
+        //                  if(params.dataIndex > 130 || params.dataIndex < 10) {
+        //                    return '';
+        //                  } else {
+        //                    if((params.dataIndex - 10) % 20 === 0) {
+        //                      return params.dataIndex - 70;
+        //                    } else {
+        //                      return '';
+        //                    }
+        //                  }
+        //                }
+        //              }
+        //            },
+        //            barGap: '-100%',
+        //            data: kd,
+        //            barWidth: 1,
+        //            itemStyle: {
+        //              normal: {
+        //                color: 'white',
+        //                barBorderRadius: 120,
+        //              }
+        //            },
+        //            z: 0
+        //          }
         ]
-      };
+      }
       // 使用刚指定的配置项和数据显示图表。
-      batcher2.setOption(option);
+      batcher2.setOption(option)
     },
     campusInfo() {
-      let campus = echarts.init(document.getElementById("campus"));
+      const campus = echarts.init(document.getElementById('campus'))
       var option = {
         title: {
-          x: "center",
+          x: 'center',
           top: 0,
           text: '风速/风向模拟',
           textStyle: {
             fontWeight: 'normal',
             fontSize: 18,
-            color: "#333"
+            color: '#333'
           }
         },
         tooltip: {
@@ -785,10 +787,10 @@ export default {
             color: '#333'
           },
           formatter: function(param) {
-            if(param.seriesIndex == 2){
+            if (param.seriesIndex === 2) {
               return '<em style="color:' + param.color + ';">当前风向:' + param.value + '</em> °'
             }
-            if(param.seriesIndex == 3){
+            if (param.seriesIndex === 3) {
               return '<em style="color:' + param.color + ';">当前风速:' + param.value + '</em> m/s'
             }
           }
@@ -850,7 +852,7 @@ export default {
               show: true,
               length: 12,
               lineStyle: {
-                color: '#8f8f8f',
+                color: '#8f8f8f'
               }
             },
             axisLabel: {
@@ -893,32 +895,32 @@ export default {
             },
             axisLabel: {
               formatter: function(e) {
-                switch (e + "") {
-                  case "0":
-                    return "正北";
-                  case "360":
-                    return "正北";
-                  case "180":
-                    return "正南";
-                  case "90":
-                    return "正东";
-                  case "270":
-                    return "正西";
+                switch (e + '') {
+                  case '0':
+                    return '正北'
+                  case '360':
+                    return '正北'
+                  case '180':
+                    return '正南'
+                  case '90':
+                    return '正东'
+                  case '270':
+                    return '正西'
                   default:
-                    return e;
+                    return e
                 }
               },
               textStyle: {
                 fontSize: 12,
-                fontWeight: ""
+                fontWeight: ''
               }
             },
             pointer: {
-              show: true,
+              show: true
             },
             detail: {
               formatter: function(param) {
-                var level = '';
+                var level = ''
                 if (param > 0 && param < 90) {
                   level = '东北'
                 } else if (param > 90 && param < 180) {
@@ -927,16 +929,16 @@ export default {
                   level = '西南'
                 } else if (param > 270 && param < 360) {
                   level = '西北'
-                } else if (param == 360) {
+                } else if (param === 360) {
                   level = '正北'
-                } else if (param == 270) {
+                } else if (param === 270) {
                   level = '正西'
-                } else if (param == 90) {
+                } else if (param === 90) {
                   level = '正东'
-                } else if (param == 180) {
+                } else if (param === 180) {
                   level = '正南'
                 }
-                return "当前风向:"+level + "(" + param + "°)";
+                return '当前风向:' + level + '(" + param + "°)'
               },
               offsetCenter: [0, 140],
               textStyle: {
@@ -1000,23 +1002,23 @@ export default {
               formatter: function(t) {
                 switch (t + '') {
                   case '10':
-                    return '10';
+                    return '10'
                   case '20':
-                    return '20';
+                    return '20'
                   case '30':
-                    return '30';
+                    return '30'
                   case '40':
-                    return '40';
+                    return '40'
                   case '50':
-                    return '50';
+                    return '50'
                   case '60':
-                    return '60';
+                    return '60'
                 }
               }
             },
             detail: {
               formatter: function(param) {
-                return "当前风速:" + param + "m/s";
+                return '当前风速:' + param + 'm/s'
               },
               offsetCenter: [0, 60],
               textStyle: {
@@ -1029,21 +1031,15 @@ export default {
             }]
           }
         ]
-      };
+      }
       setInterval(function() {
-        var datavalue = (Math.random() * 360).toFixed(2);
-        var datavalue2 = (Math.random() * 60).toFixed(2);
-        option.series[2].data[0].value = datavalue;
-        option.series[3].data[0].value = datavalue2;
-        campus.setOption(option, true);
-      }, 1000);
+        var datavalue = (Math.random() * 360).toFixed(2)
+        var datavalue2 = (Math.random() * 60).toFixed(2)
+        option.series[2].data[0].value = datavalue
+        option.series[3].data[0].value = datavalue2
+        campus.setOption(option, true)
+      }, 1000)
     }
-  },
-  computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
   }
 }
 </script>

@@ -22,8 +22,8 @@ const userMap = {
 export default {
   loginByUsername: config => {
     const { username } = JSON.parse(config.body)
-    //console.log("loginByUsername")
-    //console.log(userMap[username])
+    // console.log("loginByUsername")
+    // console.log(userMap[username])
     return userMap[username]
   },
   getUserInfo: config => {
@@ -34,5 +34,5 @@ export default {
       return false
     }
   },
-  logout: () => { return { code:20000,  msg: 'success' } }
+  logout: () => { return { code: 20000, msg: 'success' } }
 }

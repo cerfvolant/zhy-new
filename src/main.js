@@ -2,8 +2,11 @@ import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
+import '../theme/index.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import '../element-variables.scss'
+import { Button, Select } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import 'lib-flexible/flexible'
 import echarts from 'echarts'
@@ -20,7 +23,12 @@ import '@/permission' // permission control
 import './mock'
 
 Vue.use(ElementUI, { locale })
-Vue.prototype.$echarts = echarts;
+// Vue.component(Button.name, Button)
+// Vue.component(Select.name, Select)
+Vue.use(Button)
+Vue.use(Select)
+Vue.prototype.$echarts = echarts
+// Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
 Vue.config.productionTip = false
 

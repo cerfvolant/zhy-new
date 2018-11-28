@@ -1,19 +1,19 @@
 <template>
   <div class="app-container">
-    <el-col class="section" id="netSw-prof">
+    <el-col id="netSw-prof" class="section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="wljhj"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="wljhj" />
         <span>网络交换机-S2700-26TP-EI-AC型</span>
       </div>
-      <div class="section-info" id="netSw-info">
+      <div id="netSw-info" class="section-info">
         <ul id="netSw-info-ul">
-          <li v-for="item in netSwProf">{{item.profItem}}：<span>{{item.profParam}}</span> {{item.unit}}</li>
+          <li v-for="item in netSwProf" :key="item.object">{{ item.profItem }}：<span>{{ item.profParam }}</span> {{ item.unit }}</li>
         </ul>
       </div>
     </el-col>
     <el-col class="section">
       <div class="section-title">
-        <svg-icon class="svg-logo" icon-class="portLogo"></svg-icon>
+        <svg-icon class="svg-logo" icon-class="portLogo" />
         <span>网络交换机端口</span>
       </div>
       <div id="netSw-detail">
@@ -21,43 +21,40 @@
         <div id="netSw-tab">
           <ul id="netSw-tab-ul">
             <li
-              @click="isTabActive(index)"
               v-for="(item,index) in netSwTab"
+              :key="item.object"
               :class="item.doTabIconActive?'tabIconChange':'tabIconNotChange'"
-              class="netSw-tab-li">
-              <svg-icon
-                class="netSw-tab-icon"
-                :icon-class="item.netSwTabIcon">
-              </svg-icon>
+              class="netSw-tab-li"
+              @click="isTabActive(index)">
+              <svg-icon :icon-class="item.netSwTabIcon" class="netSw-tab-icon" />
             </li>
           </ul>
         </div>
         <!--接口大区块详情-->
-        <div class="netSw-port" id="netSw-port1">
+        <div id="netSw-port1" class="netSw-port">
           <div class="netSw-port-box clearfix">
             <!--接口sub切换-->
             <ul class="netSw-ul">
-              <li @click="isSubActive(index)" class="netSw-li" v-for="(item,index) in netSwLi">
+              <li v-for="(item,index) in netSwLi" :key="item.object" class="netSw-li" @click="isSubActive(index)">
                 <svg-icon
                   :class="item.doSubIconActive?'subIconChange':'subIconNotChange'"
-                  class="netSw-item-icon"
-                  :icon-class="item.netSwItemIcon">
-                </svg-icon>
+                  :icon-class="item.netSwItemIcon"
+                  class="netSw-item-icon" />
               </li>
             </ul>
             <!--各接口盒子-->
-            <div class="netSw-items-box" v-for="(i,index) in netSwBlock">
-              <div class="section netSw-item" v-for="item in i.netSwItem">
+            <div v-for="i in netSwBlock" :key="i.object" class="netSw-items-box">
+              <div v-for="item in i.netSwItem" :key="item.object" class="section netSw-item">
                 <div class="section-title">
-                  <svg-icon class="svg-logo" icon-class="portLogo"></svg-icon>
+                  <svg-icon class="svg-logo" icon-class="portLogo" />
                   <span>接口</span>
                 </div>
                 <div class="section-info">
                   <ul class="section-ul">
-                    <li class="netSw-detail">状态：<i :class="item.netSwStatusIcon"></i></li>
-                    <li class="netSw-detail">流入量：<span>{{item.netSwInflux}}</span> Byte</li>
-                    <li class="netSw-detail">流出量：<span>{{item.netSwEfflux}}</span> Byte</li>
-                    <li class="netSw-detail">IP：<span>{{item.netSwIP}}</span></li>
+                    <li class="netSw-detail">状态：<i :class="item.netSwStatusIcon"/></li>
+                    <li class="netSw-detail">流入量：<span>{{ item.netSwInflux }}</span> Byte</li>
+                    <li class="netSw-detail">流出量：<span>{{ item.netSwEfflux }}</span> Byte</li>
+                    <li class="netSw-detail">IP：<span>{{ item.netSwIP }}</span></li>
                   </ul>
                 </div>
               </div>
@@ -70,160 +67,160 @@
 </template>
 
 <script>
-  export default {
-    name: 'netSwitch',
-    data() {
-      return {
-        netSwProf: [
-          {
-            profItem: '品牌',
-            profParam: '华为HUAWEI'
-          },
-          {
-            profItem: '型号',
-            profParam: 'S2700-26TP-EI-AC型'
-          },
-          {
-            profItem: '安装时间',
-            profParam: '2018年10月10日'
-          },
-          {
-            profItem: '序列号',
-            profParam: 'SN-123456789'
-          },
-          {
-            profItem: '电流',
-            profParam: '0.6',
-            unit: 'A'
-          }
-        ],
-        netSwTab: [
-          {
-            netSwTabIcon: 'netSwitch-jk-big',
-            doTabIconActive: true
-          },
-          {
-            netSwTabIcon: 'netSwitch-jk-big',
-            doTabIconActive: false
-          },
-          {
-            netSwTabIcon: 'netSwitch-jk-big',
-            doTabIconActive: false
-          },
-          {
-            netSwTabIcon: 'netSwitch-jk-small',
-            doTabIconActive: false
-          }
-        ],
-        netSwLi: [
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: true
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          },
-          {
-            netSwItemIcon: 'portLogo',
-            doSubIconActive: false
-          }
-        ],
-        netSwBlock: [
-          {
-            netSwItem: [
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              }
-            ]
-          },
-          {
-            netSwItem: [
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              },
-              {
-                netSwStatusIcon: 'normal',
-                netSwInflux: '1024',
-                netSwEfflux: '1024',
-                netSwIP: '225.225.225.225'
-              }
-            ]
-          }
-        ],
-      }
+export default {
+  //    name: 'netSwitch',
+  data() {
+    return {
+      netSwProf: [
+        {
+          profItem: '品牌',
+          profParam: '华为HUAWEI'
+        },
+        {
+          profItem: '型号',
+          profParam: 'S2700-26TP-EI-AC型'
+        },
+        {
+          profItem: '安装时间',
+          profParam: '2018年10月10日'
+        },
+        {
+          profItem: '序列号',
+          profParam: 'SN-123456789'
+        },
+        {
+          profItem: '电流',
+          profParam: '0.6',
+          unit: 'A'
+        }
+      ],
+      netSwTab: [
+        {
+          netSwTabIcon: 'netSwitch-jk-big',
+          doTabIconActive: true
+        },
+        {
+          netSwTabIcon: 'netSwitch-jk-big',
+          doTabIconActive: false
+        },
+        {
+          netSwTabIcon: 'netSwitch-jk-big',
+          doTabIconActive: false
+        },
+        {
+          netSwTabIcon: 'netSwitch-jk-small',
+          doTabIconActive: false
+        }
+      ],
+      netSwLi: [
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: true
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        },
+        {
+          netSwItemIcon: 'portLogo',
+          doSubIconActive: false
+        }
+      ],
+      netSwBlock: [
+        {
+          netSwItem: [
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            }
+          ]
+        },
+        {
+          netSwItem: [
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            },
+            {
+              netSwStatusIcon: 'normal',
+              netSwInflux: '1024',
+              netSwEfflux: '1024',
+              netSwIP: '225.225.225.225'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {
+    isTabActive(key) {
+      this.netSwTab.forEach((val) => {
+        val.doTabIconActive = false
+      })
+      this.netSwTab[key].doTabIconActive = !this.netSwTab[key].doTabIconActive
     },
-    methods: {
-      isTabActive (key) {
-        this.netSwTab.forEach((val) => {
-          val.doTabIconActive = false
-        })
-        this.netSwTab[key].doTabIconActive = !this.netSwTab[key].doTabIconActive;
-      },
-      isSubActive (key) {
-        this.netSwLi.forEach((val) => {
-          val.doSubIconActive = false
-        })
-        this.netSwLi[key].doSubIconActive = !this.netSwLi[key].doSubIconActive;
-      }
+    isSubActive(key) {
+      this.netSwLi.forEach((val) => {
+        val.doSubIconActive = false
+      })
+      this.netSwLi[key].doSubIconActive = !this.netSwLi[key].doSubIconActive
     }
   }
+}
 </script>
 
 <style lang="scss">

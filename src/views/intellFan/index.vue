@@ -1,25 +1,25 @@
 <template>
   <div class="app-container">
     <div id="intellFan">
-      <el-col class="section intellFan-section" :span="7" v-for="item in intellFanSec">
+      <el-col v-for="item in intellFanSec" :key="item.object" :span="7" class="section intellFan-section">
         <div class="section-title">
           <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
-          <span>智能风扇-{{item.intellFanNum}}</span>
+          <span>智能风扇-{{ item.intellFanNum }}</span>
         </div>
         <div class="section-info intellFan-info">
           <svg-icon class="intellFan-svg" icon-class="fanDynamic"/>
           <div class="intellFan-calc">
-            <span v-on:click="minusBox(item)" class="count count-minus el-icon-minus"></span>
-            <span v-on:click="addBox(item)" class="count count-add el-icon-plus"></span>
+            <span class="count count-minus el-icon-minus" @click="minusBox(item)"/>
+            <span class="count count-add el-icon-plus" @click="addBox(item)"/>
             <div class="intellFan-dot">
-              <span v-bind:class="{ active : item.count >= 1}"></span>
-              <span v-bind:class="{ active : item.count >= 2}"></span>
-              <span v-bind:class="{ active : item.count >= 3}"></span>
-              <span v-bind:class="{ active : item.count >= 4}"></span>
+              <span :class="{ active : item.count >= 1}"/>
+              <span :class="{ active : item.count >= 2}"/>
+              <span :class="{ active : item.count >= 3}"/>
+              <span :class="{ active : item.count >= 4}"/>
             </div>
           </div>
           <div id="intellFan-detail">
-            <span>{{item.count}}</span>
+            <span>{{ item.count }}</span>
             <span>风扇转速等级</span>
           </div>
         </div>
@@ -29,39 +29,39 @@
 </template>
 
 <script>
-  export default {
-    name: '',
-    data() {
-      return {
-        intellFanSec: [
-          {
-            intellFanNum: '01',
-            count: 3,
-          },
-          {
-            intellFanNum: '02',
-            count: 2,
-          },
-          {
-            intellFanNum: '03',
-            count: 1,
-          }
-        ],
+export default {
+  //  name: '',
+  data() {
+    return {
+      intellFanSec: [
+        {
+          intellFanNum: '01',
+          count: 3
+        },
+        {
+          intellFanNum: '02',
+          count: 2
+        },
+        {
+          intellFanNum: '03',
+          count: 1
+        }
+      ]
+    }
+  },
+  methods: {
+    minusBox: function(item) {
+      if (item.count >= 1) {
+        item.count = item.count - 1
       }
     },
-    methods: {
-      minusBox: function (item) {
-        if (item.count >= 1) {
-          item.count = item.count - 1
-        }
-      },
-      addBox: function (item) {
-        if (item.count <= 3) {
-          item.count = item.count + 1
-        }
+    addBox: function(item) {
+      if (item.count <= 3) {
+        item.count = item.count + 1
       }
     }
   }
+}
 </script>
 
 <style lang="scss">

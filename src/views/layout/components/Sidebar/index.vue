@@ -9,7 +9,7 @@
       text-color="#ffffff"
       active-text-color="#00ffff"
     >
-      <sidebar-item v-for="route in routes" :key="route.path" v-if="route.path.indexOf(activeModule())!=-1" :item="route" :base-path="route.path"/>
+      <sidebar-item v-for="route in routes" v-if="route.path.indexOf(activeModule())!=-1" :key="route.path" :item="route" :base-path="route.path"/>
     </el-menu>
   </el-scrollbar>
 </template>
@@ -23,14 +23,14 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'module',
+      'module'
     ]),
     routes() {
       return this.$router.options.routes
     },
     isCollapse() {
       return !this.sidebar.opened
-    },
+    }
   },
   methods: {
     activeModule() {

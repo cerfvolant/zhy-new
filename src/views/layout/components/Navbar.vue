@@ -7,11 +7,12 @@
     <!--<breadcrumb class="breadcrumb-container"/>-->
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'"></template>
-      <div :class="item.isTabColorChange?'tabChange':'tabNotChange'" v-for="(item,index) in navTab" :key="item.object" @click="isNavTabActive(item,index)" class="right-menu-item menu-item-nav clearfix">
-        <svg-icon class="tab-svg-logo" :icon-class="item.tabIcon"></svg-icon>
-        <span>{{item.tabName}}</span>
+      <template v-if="device!=='mobile'"/>
+      <div v-for="(item,index) in navTab" :key="item.object" :class="item.isTabColorChange?'tabChange':'tabNotChange'" class="right-menu-item menu-item-nav clearfix" @click="isNavTabActive(item,index)">
+        <svg-icon :icon-class="item.tabIcon" class="tab-svg-logo"/>
+        <span>{{ item.tabName }}</span>
       </div>
+      <el-color-picker v-model="color1"/>
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -39,46 +40,47 @@
 
 <script>
 import { mapGetters } from 'vuex'
-//import Breadcrumb from '@/components/Breadcrumb'
+// import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 export default {
   components: {
-//    Breadcrumb,
-    Hamburger,
+  //    Breadcrumb,
+    Hamburger
   },
-  data () {
-      return {
-        navTab: [
-          {
-            tabIcon: 'home',
-            tabName: '首页',
-            tag: 'home',
-            page: '/home',
-            isTabColorChange: true
-          },
-          {
-            tabIcon: 'jk',
-            tabName: '监控',
-            tag: 'monitor',
-            page: '/monitor/sensor/index',
-            isTabColorChange: false
-          },
-          {
-            tabIcon: 'stateRIcon',
-            tabName: '报表报告',
-            tag: 'stateReport',
-            page: '/stateReport/sensorCurve/index',
-            isTabColorChange: false
-          },
-          {
-            tabIcon: 'xtgl',
-            tabName: '系统管理',
-            tag: 'xtgl',
-            isTabColorChange: false
-          }
-        ],
-        sysUserName: '管理员',
-      }
+  data() {
+    return {
+      navTab: [
+        {
+          tabIcon: 'home',
+          tabName: '首页',
+          tag: 'home',
+          page: '/home',
+          isTabColorChange: true
+        },
+        {
+          tabIcon: 'jk',
+          tabName: '监控',
+          tag: 'monitor',
+          page: '/monitor/sensor/index',
+          isTabColorChange: false
+        },
+        {
+          tabIcon: 'stateRIcon',
+          tabName: '报表报告',
+          tag: 'stateReport',
+          page: '/stateReport/sensorCurve/index',
+          isTabColorChange: false
+        },
+        {
+          tabIcon: 'xtgl',
+          tabName: '系统管理',
+          tag: 'xtgl',
+          isTabColorChange: false
+        }
+      ],
+      color1: '#409EFF',
+      sysUserName: '管理员'
+    }
   },
   computed: {
     ...mapGetters([
@@ -98,13 +100,13 @@ export default {
         location.reload()// In order to re-instantiate the vue-router object to avoid bugs
       })
     },
-    isNavTabActive(item,index) {
+    isNavTabActive(item, index) {
       this.navTab.forEach((val) => {
         val.isTabColorChange = false
-      });
-      this.navTab[index].isTabColorChange = !this.navTab[index].isTabColorChange;
-//      console.log(item);
-      this.$store.dispatch('ToggleModule', item.tag);
+      })
+      this.navTab[index].isTabColorChange = !this.navTab[index].isTabColorChange
+      //      console.log(item)
+      this.$store.dispatch('ToggleModule', item.tag)
       this.$router.push({ path: item.page })
     }
   }
@@ -116,7 +118,7 @@ export default {
 .navbar {
   height: 50px;
   line-height: 50px;
-  border-radius: 0px !important;
+  border-radius: 0 !important;
   background-color: $navBarBg !important;
   overflow: hidden;
   position: fixed;
@@ -192,7 +194,7 @@ export default {
           cursor: pointer;
           width: 40px;
           height: 40px;
-          border-radius: 10px;
+          border-radius: 50%;
         }
         .el-icon-caret-bottom {
           cursor: pointer;

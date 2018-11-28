@@ -1,12 +1,12 @@
 <template>
   <div class="app-container clearfix">
     <div id="brodSys">
-      <el-col class="section" id="brodSys-prof">
+      <el-col id="brodSys-prof" class="section">
         <div class="section-title">
-          <svg-icon class="svg-logo" icon-class="broSys"></svg-icon>
+          <svg-icon class="svg-logo" icon-class="broSys"/>
           <span>广播设备信息</span>
         </div>
-        <div class="section-info clearfix" id="brodSys-info">
+        <div id="brodSys-info" class="section-info clearfix">
           <ul>
             <li class="clearfix"><span>品牌</span>：<i>ZIZTELZEST</i></li>
             <li class="clearfix"><span>型号</span>：<i>PAGA</i></li>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-  export default {
-    name: 'brodSys',
-    data() {
-      return {}
-    }
+export default {
+  //  name: 'brodSys',
+  data() {
+    return {}
   }
+}
 </script>
 
 <style lang="scss">

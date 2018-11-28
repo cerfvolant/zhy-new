@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
 import loginAPI from './login'
+import warningAPI from './warning'
 // import articleAPI from './article'
 // import remoteSearchAPI from './remoteSearch'
 // import transactionAPI from './transaction'
@@ -22,6 +23,9 @@ Mock.XHR.prototype.send = function() {
 Mock.mock(/\/login\/login/, 'post', loginAPI.loginByUsername)
 Mock.mock(/\/login\/logout/, 'post', loginAPI.logout)
 Mock.mock(/\/user\/info\.*/, 'get', loginAPI.getUserInfo)
+
+// 告警
+Mock.mock(/\/warning\/info/, 'get', warningAPI.getWarningInfo)
 
 // // 文章相关
 // Mock.mock(/\/article\/list/, 'get', articleAPI.getList)
