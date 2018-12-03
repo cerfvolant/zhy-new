@@ -46,7 +46,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/mixin.scss";
+  @import "@/styles/mixin.scss";
+  @import "@/styles/variables.scss";
   .app-wrapper {
     @include clearfix;
     position: relative;
@@ -65,5 +66,8 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
+  }
+  .main-container {
+    background-color: $mainConBg;
   }
 </style>

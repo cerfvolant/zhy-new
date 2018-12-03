@@ -502,7 +502,7 @@ export default {
                 } else if (param === 180) {
                   level = '正南'
                 }
-                return '当前风向:' + level + '(" + param + "°)'
+                return '当前风向:' + level + '(' + param + '°)'
               },
               offsetCenter: [0, 140],
               textStyle: {

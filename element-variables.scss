@@ -14,8 +14,13 @@ $--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;
 $--color-white: #fff !default;
 $--color-black: #000 !default;
 
+/* 自定义主题色变量 修改我们自己写的样式 */
+.primaryColor{
+  background-color: #08B3E9;
+}
+
 /* 改变 主题色变量 */
-$--color-primary: #ff690c !default;
+$--color-primary: #ff04f4 !default;
 $--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */
 $--color-primary-light-2: mix($--color-white, $--color-primary, 20%) !default; /* 66b1ff */
 $--color-primary-light-3: mix($--color-white, $--color-primary, 30%) !default; /* 79bbff */

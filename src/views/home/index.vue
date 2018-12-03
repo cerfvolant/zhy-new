@@ -3,7 +3,7 @@
     <!--<div class="home-text">name:{{ name }}</div>-->
     <!--<div class="home-text">roles:<span v-for="role in roles" :key="role">{{ role }}</span></div>-->
     <!--1、wet-temperature-sensor-->
-    <el-col :span="7" class="section home-section">
+    <el-col :span="7" class="section home-section primaryColor">
       <div class="section-title">
         <svg-icon class="svg-logo" icon-class="wenshidu"/>
         <span>机柜平均温湿度</span>
@@ -14,7 +14,7 @@
       </div>
     </el-col>
     <!--2、weather-->
-    <el-col :span="9" class="section home-section">
+    <el-col :span="9" class="section home-section primaryColor">
       <div class="section-title">
         <svg-icon class="svg-logo" icon-class="weather"/>
         <span>气象</span>
@@ -24,7 +24,7 @@
       </div>
     </el-col>
     <!--3、smoke-detactor-->
-    <el-col :span="7" class="section home-section">
+    <el-col :span="7" class="section home-section primaryColor">
       <div class="section-title">
         <svg-icon class="svg-logo" icon-class="ygLogo"/>
         <span>烟感状态</span>
@@ -35,7 +35,7 @@
       </div>
     </el-col>
     <!--4、intellPDU-->
-    <el-col :span="10" class="section home-section">
+    <el-col :span="10" class="section home-section primaryColor">
       <div id="intellPDU-Title" class="section-title">
         <svg-icon class="svg-logo svg-PDU" icon-class="PDU"/>
         <span>智能PDU</span>
@@ -60,7 +60,7 @@
       </div>
     </el-col>
     <!--5、intellFan-->
-    <el-col :span="7" class="section home-section">
+    <el-col :span="7" class="section home-section primaryColor">
       <div class="section-title">
         <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
         <span>智能风扇</span>
@@ -75,7 +75,7 @@
       </div>
     </el-col>
     <!--6、warning-->
-    <el-col :span="6" class="section home-section">
+    <el-col :span="6" class="section home-section primaryColor">
       <div id="tip-title" class="section-title">
         <el-col id="tip-title-left" :span="14">
           <svg-icon id="svg-logo" class="svg-logo" icon-class="warning"/>
@@ -97,7 +97,12 @@
         </ul>
       </div>
     </el-col>
-    <el-button type="primary">按钮</el-button>
+    <!--<el-button type="primary">按钮</el-button>-->
+    <!--<el-button type="success">成功按钮</el-button>-->
+    <!--<el-button type="info">信息按钮</el-button>-->
+    <!--<el-button type="warning">警告按钮</el-button>-->
+    <!--<el-button type="danger">危险按钮</el-button>-->
+    <!--<div id="primaryColor" style="width:100%;height:80px;"/>-->
   </div>
 </template>
 
@@ -938,7 +943,7 @@ export default {
                 } else if (param === 180) {
                   level = '正南'
                 }
-                return '当前风向:' + level + '(" + param + "°)'
+                return '当前风向:' + level + '(' + param + '°)'
               },
               offsetCenter: [0, 140],
               textStyle: {

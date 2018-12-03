@@ -4,8 +4,9 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import '../theme/index.css'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import '../node_modules/element-ui/lib/theme-chalk/index.css'
 import '../element-variables.scss'
+import '../node_modules/element-ui/lib/theme-chalk/reset.css'
 import { Button, Select } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import 'lib-flexible/flexible'

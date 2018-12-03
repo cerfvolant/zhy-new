@@ -99,10 +99,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .app-wrapper.openSidebar {
+@import "@/styles/variables.scss";
+.app-wrapper.openSidebar {
     .menu-wrapper {
       .aside-item {
-        background-color: #313131 !important;
+        background-color: $navBarBg !important;
         border: 2px solid #000000;
         border-right: none;
         //text-align: center;
@@ -140,5 +141,4 @@ export default {
       border-right: none;
     }
   }
-
 </style>
