@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped="scoped">
+  @import "@/styles/variables.scss";
   $dark_gray:red;
   span.svg-container {
     color: $dark_gray;
@@ -55,6 +56,7 @@ export default {
         font-weight: normal;
         font-size: 26px;
         text-align: center;
+        color: $fontWhite;
       }
     }
   }

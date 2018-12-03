@@ -1055,6 +1055,11 @@ export default {
   }
 /*home*/
 .home-section {
+  &:nth-child(n+4) {
+    .section-info {
+      height: 200px;
+    }
+  }
   .section-info {
     //padding-left: 20px;
     //padding-right: 20px;

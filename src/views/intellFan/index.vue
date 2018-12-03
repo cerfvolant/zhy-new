@@ -68,6 +68,7 @@ export default {
   /*intellFan*/
   .intellFan-section {
     float: left;
+    margin: .5%;
     .intellFan-info {
       padding: 20px 0 50px;
       .intellFan-svg {

@@ -22,7 +22,7 @@
               </ul>
             </div>
           </div>
-          <div class="section">
+          <div class="section weather-plate">
             <div class="section-title">
               <svg-icon class="svg-logo" icon-class="fengxiang"/>
               <span>风向风速</span>
@@ -32,7 +32,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="13">
+        <el-col :span="13" class="weather-wrap">
           <div class="section weather-hour">
             <div class="section-title weather-title">
               <el-col :span="11" class="weather-title-left">
@@ -58,7 +58,8 @@
                 <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
                 <span>2min/10min 平均风速</span>
               </el-col>
-              <el-col :span="13" class="weather-title-right"/>
+              <el-col :span="13" class="weather-title-right">
+              </el-col>
             </div>
             <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
             <!--<el-tab-pane label="2min" name="first">-->
@@ -83,9 +84,47 @@
                 {{ item.avSpeedName }}
               </li>
             </ul>
+            <div v-show="avSpeed2min" class="curve-time1">
+              <el-time-select
+                placeholder="2min起始时间"
+                v-model="startTime1"
+                :picker-options="{
+                start: '00:00',
+                step: '01:00',
+                end: '23:00'
+              }"/>
+              <el-time-select
+                placeholder="2min结束时间"
+                v-model="endTime1"
+                :picker-options="{
+                start: '01:00',
+                step: '01:00',
+                end: '24:00',
+                minTime: startTime1
+              }"/>
+            </div>
+            <div v-show="avSpeed10min" class="curve-time2">
+              <el-time-select
+                placeholder="10min起始时间"
+                v-model="startTime2"
+                :picker-options="{
+                start: '00:00',
+                step: '01:00',
+                end: '23:00'
+              }"/>
+              <el-time-select
+                placeholder="10min结束时间"
+                v-model="endTime2"
+                :picker-options="{
+                start: '01:00',
+                step: '01:00',
+                end: '24:00',
+                minTime: startTime2
+              }"/>
+            </div>
             <div class="section-info">
-              <!--<div v-show="avSpeed2min" id="average" :style="{width: '100%', height: '300px'}"></div>-->
-              <!--<div v-show="avSpeed10min" id="average2" :style="{width: '100%', height: '300px'}"></div>-->
+              <div v-show="avSpeed2min" id="average" :style="{width: '450px', height: '280px'}" class="curve-box"/>
+              <div v-show="avSpeed10min" id="average2" ref="average2" :style="{width: '450px', height: '280px'}" class="curve-box"/>
               <!--<lineGraph :id="average" :data="option" style="height:300px;"></lineGraph>-->
             </div>
           </div>
@@ -188,14 +227,19 @@ export default {
         }
       ],
       avSpeed2min: true,
-      avSpeed10min: false
+      avSpeed10min: false,
+      startTime1: '',
+      endTime1: '',
+      startTime2: '',
+      endTime2: ''
     }
   },
   mounted() {
     this.graphInfo()
     this.campusInfo()
-    //   this.averageInfo()
-    //   this.averageInfo2()
+    this.averageInfo()
+    this.averageInfo2()
+    this.selfAdaption()
   },
   methods: {
     graphInfo() {
@@ -272,17 +316,17 @@ export default {
                 color: '#ff0048'
               }
             }
-          //   markPoint: {
-          //     data: [
-          //       {type: 'max', name: '最大值'},
-          //       {type: 'min', name: '最小值'}
-          //     ]
-          //   },
-          //   markLine: {
-          //     data: [
-          //       {type: 'average', name: '平均值'}
-          //     ]
-          //   }
+            //   markPoint: {
+            //     data: [
+            //       {type: 'max', name: '最大值'},
+            //       {type: 'min', name: '最小值'}
+            //     ]
+            //   },
+            //   markLine: {
+            //     data: [
+            //       {type: 'average', name: '平均值'}
+            //     ]
+            //   }
           },
           {
             name: '最小值',
@@ -619,150 +663,150 @@ export default {
         this.avSpeed2min = false
         this.avSpeed10min = true
       }
+    },
+    averageInfo() {
+      const average = echarts.init(document.getElementById('average'))
+      average.setOption({
+        title: {
+          text: '2min平均风速',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['00:00', '00:02', '00:04', '00:06', '00:08', '00:10', '00:12', '00:14',
+            '00:16', '00:18', '00:20', '00:22', '00:24', '00:26', '00:28', '00:30', '00:32',
+            '00:34', '00:36', '00:38', '00:40', '00:42', '00:44', '00:46', '00:48', '00:50',
+            '00:52', '00:54', '00:56', '00:58', '1:00']
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value} m/s'
+          },
+          axisPointer: {
+            snap: true
+          }
+        },
+        visualMap: {
+          show: false,
+          dimension: 0,
+          pieces: [{
+            lte: 6,
+            color: 'green'
+          }, {
+            gt: 6,
+            lte: 8,
+            color: 'red'
+          }, {
+            gt: 8,
+            lte: 14,
+            color: 'green'
+          }, {
+            gt: 14,
+            lte: 17,
+            color: 'red'
+          }, {
+            gt: 17,
+            color: 'green'
+          }]
+        },
+        series: [
+          {
+            name: '2min平均速度',
+            type: 'line',
+            smooth: true,
+            data: [13, 10, 13, 14, 12, 13, 10, 13, 14, 12,
+              13, 10, 13, 14, 12, 13, 10, 13, 14, 12,
+              13, 10, 13, 14, 12, 13, 10, 13, 14, 12,
+              13, 10, 13, 14, 12, 13, 10, 13, 14, 12,
+              13, 10, 13, 14, 12, 13, 10, 13, 14, 12,
+              13, 10, 13, 14, 12, 13, 10, 13, 14, 12]
+          }
+        ]
+      })
+    },
+
+    averageInfo2() {
+      const average2 = this.$echarts.init(this.$refs['average2'])
+      var average2_option = {
+        title: {
+          text: '10min平均风速',
+          textStyle: {
+            color: '#ffffff'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '1:00']
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value} m/s'
+          },
+          axisPointer: {
+            snap: true
+          }
+        },
+        visualMap: {
+          show: false,
+          dimension: 0,
+          pieces: [{
+            lte: 6,
+            color: 'green'
+          }, {
+            gt: 6,
+            lte: 8,
+            color: 'red'
+          }, {
+            gt: 8,
+            lte: 14,
+            color: 'green'
+          }, {
+            gt: 14,
+            lte: 17,
+            color: 'red'
+          }, {
+            gt: 17,
+            color: 'green'
+          }]
+        },
+        series: [
+          {
+            name: '10min平均速度',
+            type: 'line',
+            smooth: true,
+            data: [13, 10, 13, 14, 12, 13, 10]
+          }
+        ]
+      }
+      average2.setOption(average2_option)
+    },
+
+    selfAdaption() {
+      const _this = this
+      setTimeout(() => {
+        window.addEventListener('resize', function() {
+          _this.$refs.average2.resize()
+        })
+      }, 100)
     }
-    //      option: {
-    //        title: '2min平均风速',
-    //        textStyle: {
-    //          color: '#ffffff'
-    //        }
-    //      }
-
-    //      averageInfo() {
-    //        let average = echarts.init(document.getElementById("average"));
-    //        average.setOption({
-    //          title: {
-    //            text: '2min平均风速',
-    //            textStyle: {
-    //              color: '#ffffff'
-    //            }
-    //          },
-    //          tooltip: {
-    //            trigger: 'axis',
-    //            axisPointer: {
-    //              type: 'cross'
-    //            }
-    //          },
-    //          xAxis:  {
-    //            type: 'category',
-    //            boundaryGap: false,
-    //            data: ['00:00', '00:02', '00:04', '00:06', '00:08', '00:10', '00:12', '00:14',
-    //              '00:16', '00:18', '00:20', '00:22', '00:24', '00:26', '00:28', '00:30', '00:32',
-    //              '00:34', '00:36', '00:38','00:40', '00:42', '00:44', '00:46', '00:48','00:50','00:52','00:54','00:56',
-    //              '00:58','1:00']
-    //          },
-    //          yAxis: {
-    //            type: 'value',
-    //            axisLabel: {
-    //              formatter: '{value} m/s'
-    //            },
-    //            axisPointer: {
-    //              snap: true
-    //            }
-    //          },
-    //          visualMap: {
-    //            show: false,
-    //            dimension: 0,
-    //            pieces: [{
-    //              lte: 6,
-    //              color: 'green'
-    //            }, {
-    //              gt: 6,
-    //              lte: 8,
-    //              color: 'red'
-    //            }, {
-    //              gt: 8,
-    //              lte: 14,
-    //              color: 'green'
-    //            }, {
-    //              gt: 14,
-    //              lte: 17,
-    //              color: 'red'
-    //            }, {
-    //              gt: 17,
-    //              color: 'green'
-    //            }]
-    //          },
-    //          series: [
-    //            {
-    //              name:'2min平均速度',
-    //              type:'line',
-    //              smooth: true,
-    //              data: [13,10,13,14,12,13,10,13,14,12,
-    //                13,10,13,14,12,13,10,13,14,12,
-    //                13,10,13,14,12,13,10,13,14,12,
-    //                13,10,13,14,12,13,10,13,14,12,
-    //                13,10,13,14,12,13,10,13,14,12,
-    //                13,10,13,14,12,13,10,13,14,12,],
-    //
-    //            }
-    //          ]
-    //        })
-    //      },
-
-    //      averageInfo2() {
-    //        let average2 = echarts.init(document.getElementById("average2"));
-    //        var average2_option = {
-    //          title: {
-    //            text: '10min平均风速',
-    //            textStyle: {
-    //              color: '#ffffff'
-    //            }
-    //          },
-    //          tooltip: {
-    //            trigger: 'axis',
-    //            axisPointer: {
-    //              type: 'cross'
-    //            }
-    //          },
-    //          xAxis:  {
-    //            type: 'category',
-    //            boundaryGap: false,
-    //            data: ['00:00', '00:10', '00:20', '00:30','00:40','00:50','1:00']
-    //          },
-    //          yAxis: {
-    //            type: 'value',
-    //            axisLabel: {
-    //              formatter: '{value} m/s'
-    //            },
-    //            axisPointer: {
-    //              snap: true
-    //            }
-    //          },
-    //          visualMap: {
-    //            show: false,
-    //            dimension: 0,
-    //            pieces: [{
-    //              lte: 6,
-    //              color: 'green'
-    //            }, {
-    //              gt: 6,
-    //              lte: 8,
-    //              color: 'red'
-    //            }, {
-    //              gt: 8,
-    //              lte: 14,
-    //              color: 'green'
-    //            }, {
-    //              gt: 14,
-    //              lte: 17,
-    //              color: 'red'
-    //            }, {
-    //              gt: 17,
-    //              color: 'green'
-    //            }]
-    //          },
-    //          series: [
-    //            {
-    //              name:'10min平均速度',
-    //              type:'line',
-    //              smooth: true,
-    //              data: [13,10,13,14,12,13,10],
-    //
-    //            }
-    //          ]
-    //        }
-    //        average2.setOption(average2_option);
-    //      }
   }
 }
 </script>
@@ -770,6 +814,12 @@ export default {
 <style lang="scss">
   .section {
     margin: 0 .5% 2%;
+    .section-info {
+      height: 300px;
+      .curve-box {
+        margin: 0 auto;
+      }
+    }
   }
   /*weather*/
   .weather-prof {
@@ -779,6 +829,8 @@ export default {
         float: left;
         //margin-right: 50px;
         width: 100%;
+        margin-top: 50px;
+        line-height: 20px;
         li {
           float: left;
           width: 50%;
@@ -819,62 +871,75 @@ export default {
       }
     }
   }
-  .weather-hour {
-    .weather-title {
-      display: flex;
-      justify-content: space-between;
-      .weather-title-right {
-        height: 100%;
-        .el-input {
-          width: 100%;
+  .weather-plate {
+    .section-info {
+      height: 330px;
+    }
+  }
+  .weather-wrap {
+    .weather-hour {
+      width: 100%;
+      .weather-title {
+        display: flex;
+        justify-content: space-between;
+        .weather-title-right {
           height: 100%;
-          .el-input__inner {
+          .el-input {
+            width: 100%;
             height: 100%;
-          }
-          .el-input__prefix {
-            .el-input__icon {
-              line-height:inherit;
+            .el-input__inner {
+              height: 100%;
             }
-          }
-          .el-input__suffix {
-            height: 100%;
-            .el-input__suffix-inner {
+            .el-input__prefix {
               .el-input__icon {
                 line-height:inherit;
+              }
+            }
+            .el-input__suffix {
+              height: 100%;
+              .el-input__suffix-inner {
+                .el-input__icon {
+                  line-height:inherit;
+                }
               }
             }
           }
         }
       }
-    }
-    .avSpeed-tab {
-      border-bottom: 1px solid #434343 !important;
-      list-style: none;
-      height: 100%;
-      display: inline-flex;
-      width: 100%;
-      justify-content: space-around;
-      li {
+      .avSpeed-tab {
+        border-bottom: 1px solid #434343 !important;
+        list-style: none;
         height: 100%;
-        position: relative;
-        padding: 8px 0;
-        cursor: pointer;
-        &:after {
-          content: '';
-          display: inline-block;
-          width: 100%;
-          height: 2px;
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-around;
+        li {
+          height: 100%;
+          position: relative;
+          padding: 8px 0;
+          cursor: pointer;
+          &:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+        }
+        .timeItemChange {
+          color: #00ffff;
+          &:after {
+            background-color: #00ffff;
+          }
         }
       }
-      .timeItemChange {
-        color: #00ffff;
-        &:after {
-          background-color: #00ffff;
-        }
+      .section-info {
+        width: 100%;
+        box-sizing: border-box;
+        height: 330px;
       }
     }
   }

@@ -14,17 +14,11 @@
             </div>
           </div>
         </el-col>
-        <el-col id="sensor-img" :span="8" style="background-color: #1b1b1b;">
+        <el-col id="sensor-img" :span="8">
           <div class="sensor-svg-wrap">
             <svg-icon class="sensor-jigui" icon-class="jigui"/>
             <svg-icon class="" icon-class="wenshidu"/>
           </div>
-          <!--<svg id="sensor-jigui" class="icon" aria-hidden="true">-->
-          <!--<use xlink:href="#icon-jigui"></use>-->
-          <!--</svg>-->
-          <!--<svg id="sensor-wsd" class="icon" aria-hidden="true">-->
-          <!--<use xlink:href="#icon-wenshidu"></use>-->
-          <!--</svg>-->
         </el-col>
         <el-col id="back-sensor" :span="8" class="sensor-wrap">
           <div v-for="item in backSec" :key="item.object" class="section">
@@ -654,6 +648,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '@/styles/variables.scss';
   #front-sensor, #back-sensor {
     .senser-block {
       //height: 300px;
@@ -676,6 +671,7 @@ export default {
     height: 600px;
     margin: .5% 0;
     position: relative;
+    background-color: $sectionBg;
     .sensor-svg-wrap {
       .sensor-jigui {
         font-size: 600px;

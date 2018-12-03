@@ -105,7 +105,7 @@ export default {
   },
   mounted() {
     // 默认从线上官方拉取最新css,2秒钟后做一个检查没有拉到就从本地在拉下
-    const that = this
+    // const that = this
     // 如果是记住用户的状态就需要，在主题切换的时候记录颜色值，在下次打开的时候从新赋值
     this.colors.primary = localStorage.getItem('color') || this.colors.primary // 例如
     // this.getIndexStyle(this.cssUrl[0])
@@ -167,7 +167,7 @@ export default {
         // 如果之前没有插入就修改
         document.head.lastChild.innerText = '.primaryColor{background-color:' + this.colors.primary + ' !important; } ' + cssText
       }
-    },
+    }
     //    getIndexStyle(url) {
     //      const that = this
     //      var request = new XMLHttpRequest()

@@ -83,6 +83,21 @@ export default {
           PBXPortNum: '05',
           PBXIPAddress: '225.225.225.225',
           PBXStatus: 'PBXNormal'
+        },
+        {
+          PBXPortNum: '06',
+          PBXIPAddress: '225.225.225.225',
+          PBXStatus: 'PBXNormal'
+        },
+        {
+          PBXPortNum: '07',
+          PBXIPAddress: '225.225.225.225',
+          PBXStatus: 'PBXNormal'
+        },
+        {
+          PBXPortNum: '08',
+          PBXIPAddress: '225.225.225.225',
+          PBXStatus: 'PBXNormal'
         }
       ]
     }

@@ -148,6 +148,7 @@ export default {
     //top: 0;
     //left: 0;
     min-height: 650px;
+    margin: 0 .5%;
     .prof-item {
       .progress-box {
         display: inline-flex;
