@@ -779,8 +779,8 @@ export default {
           text: '风速/风向模拟',
           textStyle: {
             fontWeight: 'normal',
-            fontSize: 18,
-            color: '#333'
+            fontSize: 15,
+            color: '#ffffff'
           }
         },
         tooltip: {

@@ -9,12 +9,6 @@
               <span>气象基本参数</span>
             </div>
             <div id="weather-info" class="section-info clearfix">
-              <!--<ul>-->
-              <!--<li class="clearfix"><span>品牌</span>：<i>美的</i></li>-->
-              <!--<li class="clearfix"><span>型号</span>：<i>GY-250</i></li>-->
-              <!--<li class="clearfix"><span>序列号</span>：<i>GY-123456</i></li>-->
-              <!--<li class="clearfix"><span>安装时间</span>：<i>2018年10月20日</i></li>-->
-              <!--</ul>-->
               <ul id="weather-ul2">
                 <li v-for="item in weatherProf2" :key="item.object" class="clearfix">
                   <span>{{ item.profItem }}</span>：<i>{{ item.profParam }}</i> {{ item.unit }}
@@ -39,17 +33,77 @@
                 <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
                 <span>时段风速</span>
               </el-col>
-              <el-col :span="8" class="weather-title-right">
-                <el-date-picker
-                  :picker-options="pickerOptions1"
-                  v-model="value2"
-                  align="right"
-                  type="date"
-                  placeholder="选择日期"/>
-              </el-col>
+              <el-col :span="8" class="weather-title-right"/>
+            </div>
+            <ul class="avSpeed-tab">
+              <li
+                v-for="(item, index) in hour24SpeedArr"
+                :key="item.object"
+                :class="item.doTimeTabActive?'timeItemChange':'timeItemNotChange'"
+                class="avtabItem"
+                @click="hour24SpTab(index)">
+                {{ item.hour24SpeedName }}
+              </li>
+            </ul>
+            <div v-show="hour24Sp2min" class="curve-time">
+              <el-date-picker
+                :picker-options="pickerOptions1"
+                v-model="value2"
+                align="right"
+                type="date"
+                placeholder="日期"
+                class="time-box"/>
+              <el-time-select
+                v-model="startTime1"
+                :picker-options="{
+                  start: '00:00',
+                  step: '01:00',
+                  end: '23:00'
+                }"
+                placeholder="起始时间"
+                class="time-box"/>
+              <el-time-select
+                v-model="endTime1"
+                :picker-options="{
+                  start: '01:00',
+                  step: '01:00',
+                  end: '24:00',
+                  minTime: startTime1
+                }"
+                placeholder="结束时间"
+                class="time-box"/>
+            </div>
+            <div v-show="hour24Sp10min" class="curve-time">
+              <el-date-picker
+                :picker-options="pickerOptions1"
+                v-model="value2"
+                align="right"
+                type="date"
+                placeholder="选择日期"
+                class="time-box"/>
+              <el-time-select
+                v-model="startTime2"
+                :picker-options="{
+                  start: '00:00',
+                  step: '01:00',
+                  end: '23:00'
+                }"
+                placeholder="起始时间"
+                class="time-box"/>
+              <el-time-select
+                v-model="endTime2"
+                :picker-options="{
+                  start: '01:00',
+                  step: '01:00',
+                  end: '24:00',
+                  minTime: startTime2
+                }"
+                placeholder="结束时间"
+                class="time-box"/>
             </div>
             <div class="section-info">
-              <div id="graph" :style="{width: '100%', height: '300px'}"/>
+              <div v-show="hour24Sp2min" id="graph" :style="{width: '490px', height: '280px'}" class="curve-box"/>
+              <div v-show="hour24Sp10min" id="graph2" :style="{width: '490px', height: '280px'}" class="curve-box"/>
             </div>
           </div>
           <div class="section weather-hour">
@@ -58,8 +112,7 @@
                 <svg-icon class="svg-logo" icon-class="intellFanLogo"/>
                 <span>2min/10min 平均风速</span>
               </el-col>
-              <el-col :span="13" class="weather-title-right">
-              </el-col>
+              <el-col :span="13" class="weather-title-right"/>
             </div>
             <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
             <!--<el-tab-pane label="2min" name="first">-->
@@ -76,7 +129,7 @@
             <!--</el-tabs>-->
             <ul class="avSpeed-tab">
               <li
-                v-for="(item,index) in avSpeedArr"
+                v-for="(item, index) in avSpeedArr"
                 :key="item.object"
                 :class="item.doTimeTabActive?'timeItemChange':'timeItemNotChange'"
                 class="avtabItem"
@@ -84,48 +137,67 @@
                 {{ item.avSpeedName }}
               </li>
             </ul>
-            <div v-show="avSpeed2min" class="curve-time1">
+
+            <div v-show="avSpeed2min" class="curve-time">
+              <el-date-picker
+                :picker-options="pickerOptions1"
+                v-model="value2"
+                align="right"
+                type="date"
+                placeholder="日期"
+                class="time-box"/>
               <el-time-select
-                placeholder="2min起始时间"
                 v-model="startTime1"
                 :picker-options="{
-                start: '00:00',
-                step: '01:00',
-                end: '23:00'
-              }"/>
+                  start: '00:00',
+                  step: '01:00',
+                  end: '23:00'
+                }"
+                placeholder="起始时间"
+                class="time-box"/>
               <el-time-select
-                placeholder="2min结束时间"
                 v-model="endTime1"
                 :picker-options="{
-                start: '01:00',
-                step: '01:00',
-                end: '24:00',
-                minTime: startTime1
-              }"/>
+                  start: '01:00',
+                  step: '01:00',
+                  end: '24:00',
+                  minTime: startTime1
+                }"
+                placeholder="结束时间"
+                class="time-box"/>
             </div>
-            <div v-show="avSpeed10min" class="curve-time2">
+            <div v-show="avSpeed10min" class="curve-time">
+              <el-date-picker
+                :picker-options="pickerOptions1"
+                v-model="value2"
+                align="right"
+                type="date"
+                placeholder="选择日期"
+                class="time-box"/>
               <el-time-select
-                placeholder="10min起始时间"
                 v-model="startTime2"
                 :picker-options="{
-                start: '00:00',
-                step: '01:00',
-                end: '23:00'
-              }"/>
+                  start: '00:00',
+                  step: '01:00',
+                  end: '23:00'
+                }"
+                placeholder="起始时间"
+                class="time-box"/>
               <el-time-select
-                placeholder="10min结束时间"
                 v-model="endTime2"
                 :picker-options="{
-                start: '01:00',
-                step: '01:00',
-                end: '24:00',
-                minTime: startTime2
-              }"/>
+                  start: '01:00',
+                  step: '01:00',
+                  end: '24:00',
+                  minTime: startTime2
+                }"
+                placeholder="结束时间"
+                class="time-box"/>
             </div>
+
             <div class="section-info">
               <div v-show="avSpeed2min" id="average" :style="{width: '450px', height: '280px'}" class="curve-box"/>
               <div v-show="avSpeed10min" id="average2" ref="average2" :style="{width: '450px', height: '280px'}" class="curve-box"/>
-              <!--<lineGraph :id="average" :data="option" style="height:300px;"></lineGraph>-->
             </div>
           </div>
         </el-col>
@@ -213,7 +285,19 @@ export default {
         }]
       },
       value2: new Date(),
-      activeName: 'first',
+      //  activeName: 'first',
+      hour24SpeedArr: [
+        {
+          hour24SpeedName: '2min',
+          doTimeTabActive: true
+        },
+        {
+          hour24SpeedName: '10min',
+          doTimeTabActive: false
+        }
+      ],
+      hour24Sp2min: true,
+      hour24Sp10min: false,
       avSpeedArr: [
         {
           avSpeedName: '2min',
@@ -236,20 +320,22 @@ export default {
   },
   mounted() {
     this.graphInfo()
+    this.graphInfo2()
     this.campusInfo()
     this.averageInfo()
     this.averageInfo2()
-    this.selfAdaption()
+    //  this.selfAdaption()
   },
   methods: {
     graphInfo() {
       const graph = echarts.init(document.getElementById('graph'))
       graph.setOption({
         title: {
-          text: '24小时风速曲线',
+          text: '24小时2min风速曲线',
           subtext: '时段内风速',
           textStyle: {
-            color: '#ffffff'
+            color: '#ffffff',
+            fontSize: 15
           }
         },
         tooltip: {
@@ -373,6 +459,75 @@ export default {
         ]
       })
     },
+    graphInfo2() {
+      const graph2 = echarts.init(document.getElementById('graph2'))
+      graph2.setOption({
+        title: {
+          text: '24小时10min风速曲线',
+          subtext: '时段内风速',
+          textStyle: {
+            color: '#ffffff',
+            fontSize: 15
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        color: ['#ff0048', '#ffff00'],
+        legend: {
+          data: [
+            { name: '最大值', textStyle: { color: '#ffffff' }},
+            { name: '最小值', textStyle: { color: '#ffffff' }}
+          ]
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '1:00'],
+          axisLabel: {
+            textStyle: {
+              color: '#ffffff'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          min: 0,
+          max: 20,
+          interval: 4,
+          axisLabel: {
+            formatter: '{value} m/s',
+            textStyle: {
+              color: '#ffffff'
+            }
+          }
+        },
+        series: [
+          {
+            name: '最大值',
+            type: 'line',
+            smooth: true,
+            data: [12, 13, 14, 15, 16, 18, 19],
+            lineStyle: {
+              normal: {
+                color: '#ff0048'
+              }
+            }
+          },
+          {
+            name: '最小值',
+            type: 'line',
+            smooth: true,
+            data: [8, 6, 7, 8, 9, 10, 8],
+            lineStyle: {
+              normal: {
+                color: '#ffff00'
+              }
+            }
+          }
+        ]
+      })
+    },
     campusInfo() {
       const campus = echarts.init(document.getElementById('campus'))
       var option = {
@@ -382,8 +537,8 @@ export default {
           text: '风速/风向模拟',
           textStyle: {
             fontWeight: 'normal',
-            fontSize: 18,
-            color: '#333'
+            fontSize: 15,
+            color: '#ffffff'
           }
         },
         tooltip: {
@@ -651,6 +806,19 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
     },
+    hour24SpTab(key) {
+      this.hour24SpeedArr.forEach((val) => {
+        val.doTimeTabActive = false
+      })
+      this.hour24SpeedArr[key].doTimeTabActive = !this.hour24SpeedArr[key].doTimeTabActive
+      if (key === 0) {
+        this.hour24Sp2min = true
+        this.hour24Sp10min = false
+      } else {
+        this.hour24Sp2min = false
+        this.hour24Sp10min = true
+      }
+    },
     avWindSpTab(key) {
       this.avSpeedArr.forEach((val) => {
         val.doTimeTabActive = false
@@ -685,12 +853,20 @@ export default {
           data: ['00:00', '00:02', '00:04', '00:06', '00:08', '00:10', '00:12', '00:14',
             '00:16', '00:18', '00:20', '00:22', '00:24', '00:26', '00:28', '00:30', '00:32',
             '00:34', '00:36', '00:38', '00:40', '00:42', '00:44', '00:46', '00:48', '00:50',
-            '00:52', '00:54', '00:56', '00:58', '1:00']
+            '00:52', '00:54', '00:56', '00:58', '1:00'],
+          axisLabel: {
+            textStyle: {
+              color: '#ffffff'
+            }
+          }
         },
         yAxis: {
           type: 'value',
           axisLabel: {
-            formatter: '{value} m/s'
+            formatter: '{value} m/s',
+            textStyle: {
+              color: '#ffffff'
+            }
           },
           axisPointer: {
             snap: true
@@ -753,12 +929,20 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '1:00']
+          data: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '1:00'],
+          axisLabel: {
+            textStyle: {
+              color: '#ffffff'
+            }
+          }
         },
         yAxis: {
           type: 'value',
           axisLabel: {
-            formatter: '{value} m/s'
+            formatter: '{value} m/s',
+            textStyle: {
+              color: '#ffffff'
+            }
           },
           axisPointer: {
             snap: true
@@ -797,16 +981,16 @@ export default {
         ]
       }
       average2.setOption(average2_option)
-    },
-
-    selfAdaption() {
-      const _this = this
-      setTimeout(() => {
-        window.addEventListener('resize', function() {
-          _this.$refs.average2.resize()
-        })
-      }, 100)
     }
+
+    //  selfAdaption() {
+    //    const _this = this
+    //    setTimeout(() => {
+    //      window.addEventListener('resize', function() {
+    //        _this.$refs.average2.resize()
+    //      })
+    //    }, 100)
+    //  }
   }
 }
 </script>
@@ -936,10 +1120,45 @@ export default {
           }
         }
       }
+      .curve-time {
+        width: 100%;
+        height: 30px;
+        padding: 2% 0;
+        text-align: center;
+        border-bottom: 1px solid #434343;
+        .time-box {
+          &:first-of-type {
+            width: 30%;
+          }
+          &:nth-child(n+2) {
+            width: 30%;
+          }
+        }
+        .el-input {
+          width: 100%;
+          height: 100%;
+          .el-input__inner {
+            height: 100%;
+          }
+          .el-input__prefix {
+            .el-input__icon {
+              line-height:inherit;
+            }
+          }
+          .el-input__suffix {
+            height: 100%;
+            .el-input__suffix-inner {
+              .el-input__icon {
+                line-height:inherit;
+              }
+            }
+          }
+        }
+      }
       .section-info {
         width: 100%;
         box-sizing: border-box;
-        height: 330px;
+        height: 300px;
       }
     }
   }
