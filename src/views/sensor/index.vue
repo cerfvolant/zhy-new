@@ -1,38 +1,21 @@
 <template>
-  <div class="app-container clearfix">
-    <div id="sensor">
-      <el-row :gutter="20">
-        <el-col id="front-sensor" :span="8" class="sensor-wrap">
-          <div v-for="item in frontSec" :key="item.object" class="section">
-            <div class="section-title">
-              <svg-icon class="svg-logo" icon-class="wenshidu" />
-              <span>{{ item.frontTitle }}</span>
-            </div>
-            <div class="section-info senser-block clearfix">
-              <div :id="'temp'+item.id" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
-              <div :id="'hum'+item.id" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
-            </div>
+  <div class="sensor clearfix">
+    <div class="sensor-wrap">
+      <div v-for="(i, index) in sensorTab" ref="sensorTab" :key="i.object" class="sensor-tab clearfix">
+        <div :class="{active:index === tabBlock}" class="sensor-block">
+          <div class="sensor-title">
+            <svg-icon icon-class="wenshidu"/>
+            <span>{{ i.title }}温湿度</span>
           </div>
-        </el-col>
-        <el-col id="sensor-img" :span="8">
-          <div class="sensor-svg-wrap">
-            <svg-icon class="sensor-jigui" icon-class="jigui"/>
-            <svg-icon class="" icon-class="wenshidu"/>
+          <div class="sensor-chart">
+            <div :id="'temp'+ i.id" :style="{width: '200px',height: '300px'}"/>
+            <div :id="'hum'+ i.id2" :style="{width: '200px',height: '300px'}"/>
           </div>
-        </el-col>
-        <el-col id="back-sensor" :span="8" class="sensor-wrap">
-          <div v-for="item in backSec" :key="item.object" class="section">
-            <div class="section-title">
-              <svg-icon class="svg-logo" icon-class="wenshidu"/>
-              <span>{{ item.backTitle }}</span>
-            </div>
-            <div class="section-info senser-block clearfix">
-              <div :id="'temp'+item.id" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
-              <div :id="'hum'+item.id" :style="{width: '50%', height: '300px', position: 'absolute'}"/>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+        </div>
+        <div :class="{active:index === tabNum}" class="sensor-subtab" @click="tabIcon(index)">
+          <svg-icon class="sensor-subIcon" icon-class="jigui"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,54 +23,60 @@
 <script>
 const echarts = require('echarts/lib/echarts')
 export default {
-  //  name: 'sensor',
   data() {
     return {
-      frontSec: [
+      sensorTab: [
         {
-          frontTitle: '前上温湿度',
-          id: '1'
+          title: '前上',
+          id: 1,
+          id2: 1
         },
         {
-          frontTitle: '前中温湿度',
-          id: '2'
+          title: '后上',
+          id: 2,
+          id2: 2
         },
         {
-          frontTitle: '前下温湿度',
-          id: '3'
+          title: '前中',
+          id: 3,
+          id2: 3
+        },
+        {
+          title: '后中',
+          id: 4,
+          id2: 4
+        },
+        {
+          title: '前下',
+          id: 5,
+          id2: 5
+        },
+        {
+          title: '后下',
+          id: 6,
+          id2: 6
         }
       ],
-      backSec: [
-        {
-          backTitle: '后上温湿度',
-          id: '4'
-        },
-        {
-          backTitle: '后中温湿度',
-          id: '5'
-        },
-        {
-          backTitle: '后下温湿度',
-          id: '6'
-        }
-      ]
+      tabBlock: 0,
+      tabNum: 0
     }
   },
   mounted() {
     this.init()
-    //  this.batcherBox();
-    //  this.batcherBox2();
   },
   methods: {
+    tabIcon(index) {
+      this.tabBlock = index
+      this.tabNum = index
+      // console.log(this.tabBlock)
+      // console.log(this.tabNum)
+    },
     init() {
-      var that = this
-      this.frontSec.forEach(function(item) {
+      const that = this
+      // console.log(that.$refs.sensorTab)
+      that.sensorTab.forEach(function(item) {
         that.batcherBox('temp' + item.id)
-        that.batcherBox2('hum' + item.id)
-      })
-      this.backSec.forEach(function(item) {
-        that.batcherBox('temp' + item.id)
-        that.batcherBox2('hum' + item.id)
+        that.batcherBox2('hum' + item.id2)
       })
     },
     batcherBox(eId) {
@@ -325,42 +314,6 @@ export default {
           },
           z: 0
         }
-        //          {
-        //            name: '刻度',
-        //            type: 'bar',
-        //            yAxisIndex: 0,
-        //            xAxisIndex: 3,
-        //            label: {
-        //              normal: {
-        //                show: true,
-        //                position: 'left',
-        //                distance: 10,
-        //                color: 'white',
-        //                fontSize: 12,
-        //                formatter: function(params) {
-        //                  if(params.dataIndex > 130 || params.dataIndex < 10) {
-        //                    return '';
-        //                  } else {
-        //                    if((params.dataIndex - 10) % 20 === 0) {
-        //                      return params.dataIndex - 70;
-        //                    } else {
-        //                      return '';
-        //                    }
-        //                  }
-        //                }
-        //              }
-        //            },
-        //            barGap: '-100%',
-        //            data: kd,
-        //            barWidth: 1,
-        //            itemStyle: {
-        //              normal: {
-        //                color: 'white',
-        //                barBorderRadius: 120,
-        //              }
-        //            },
-        //            z: 0
-        //          }
         ]
       }
       // 使用刚指定的配置项和数据显示图表。
@@ -602,42 +555,42 @@ export default {
           },
           z: 0
         }
-        //          {
-        //            name: '刻度',
-        //            type: 'bar',
-        //            yAxisIndex: 0,
-        //            xAxisIndex: 3,
-        //            label: {
-        //              normal: {
-        //                show: true,
-        //                position: 'left',
-        //                distance: 10,
-        //                color: 'white',
-        //                fontSize: 12,
-        //                formatter: function(params) {
-        //                  if(params.dataIndex > 130 || params.dataIndex < 10) {
-        //                    return '';
-        //                  } else {
-        //                    if((params.dataIndex - 10) % 20 === 0) {
-        //                      return params.dataIndex - 70;
-        //                    } else {
-        //                      return '';
-        //                    }
-        //                  }
-        //                }
-        //              }
-        //            },
-        //            barGap: '-100%',
-        //            data: kd,
-        //            barWidth: 1,
-        //            itemStyle: {
-        //              normal: {
-        //                color: 'white',
-        //                barBorderRadius: 120,
-        //              }
-        //            },
-        //            z: 0
-        //          }
+          //          {
+          //            name: '刻度',
+          //            type: 'bar',
+          //            yAxisIndex: 0,
+          //            xAxisIndex: 3,
+          //            label: {
+          //              normal: {
+          //                show: true,
+          //                position: 'left',
+          //                distance: 10,
+          //                color: 'white',
+          //                fontSize: 12,
+          //                formatter: function(params) {
+          //                  if(params.dataIndex > 130 || params.dataIndex < 10) {
+          //                    return '';
+          //                  } else {
+          //                    if((params.dataIndex - 10) % 20 === 0) {
+          //                      return params.dataIndex - 70;
+          //                    } else {
+          //                      return '';
+          //                    }
+          //                  }
+          //                }
+          //              }
+          //            },
+          //            barGap: '-100%',
+          //            data: kd,
+          //            barWidth: 1,
+          //            itemStyle: {
+          //              normal: {
+          //                color: 'white',
+          //                barBorderRadius: 120,
+          //              }
+          //            },
+          //            z: 0
+          //          }
         ]
       }
       // 使用刚指定的配置项和数据显示图表。
@@ -648,40 +601,74 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/variables.scss';
-  #front-sensor, #back-sensor {
-    .senser-block {
-      //height: 300px;
-      position: relative;
-      #temp1,#temp2 , #temp3 , #temp4 ,#temp5, #temp6 {
-        top: -390%;
+@import '@/styles/variables.scss';
+.sensor-wrap {
+  .sensor-tab {
+    /*background-color: yellow;*/
+    margin: 1.5% 0;
+    height: 250px;
+    float: left;
+    width: 50%;
+    .sensor-block {
+      width: 65%;
+      background-color: $sectionBg;
+      float: left;
+      height: 100%;
+      .sensor-title {
+        padding: 1.5%;
+        border-bottom: 1px solid #434343;
       }
-      #hum1,#hum2 , #hum3 , #hum4 ,#hum5, #hum6 {
-        right: 0;
-        top: -390%;
+      .sensor-chart {
+        padding: 1.5%;
+        position: relative;
+        height: 200px;
+        #temp1, #temp2, #temp3, #temp4, #temp5, #temp6 {
+          position: absolute;
+          top: -100px;
+        }
+        #hum1, #hum2 , #hum3 , #hum4 ,#hum5, #hum6 {
+          position: absolute;
+          right: -10%;
+          top: -50%;
+        }
+      }
+      &.active {
+        background-color: #ffffff;
+        color: #000000;
+      }
+    }
+    .sensor-subtab {
+      float: right;
+      width: 30%;
+      /*background-color: red;*/
+      border: 1px solid $sectionBg;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &.active {
+        color: #00ffff;
+        border: 1px solid $themeColor;
+      }
+      .sensor-subIcon {
+        font-size: 200px;
+      }
+    }
+    &:nth-child(2n) {
+      /*background-color: pink;*/
+      .sensor-block {
+        float: right;
+      }
+      .sensor-subtab {
+        float: left;
+        border-left: none;
+        &.active {
+          border: 1px solid $themeColor;
+        }
       }
     }
   }
-  .sensor-wrap {
-    .section {
-      height: 200px;
-    }
-  }
-  #sensor-img {
-    height: 600px;
-    margin: .5% 0;
-    position: relative;
-    background-color: $sectionBg;
-    .sensor-svg-wrap {
-      .sensor-jigui {
-        font-size: 600px;
-        margin: 0 auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-      }
-    }
-  }
+}
 </style>
 
