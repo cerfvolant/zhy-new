@@ -23,7 +23,8 @@
                 placeholder="密码"
                 @keyup.enter.native="handleLogin" />
               <span class="show-pwd" @click="showPwd">
-                <svg-icon icon-class="eye" />
+                <!--<svg-icon icon-class="eye" />-->
+                <i class="el-icon-view"></i>
               </span>
             </el-form-item>
             <el-form-item>

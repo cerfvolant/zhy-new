@@ -57,6 +57,11 @@ export default {
       position: fixed;
       top: 0;
     }
+    &.hideSidebar {
+      .sidebar-container {
+        color: #000;
+      }
+    }
   }
   .drawer-bg {
     background: #000;

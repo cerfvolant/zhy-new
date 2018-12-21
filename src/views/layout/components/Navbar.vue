@@ -8,7 +8,11 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'"/>
-      <div v-for="(item,index) in navTab" :key="item.object" :class="item.isTabColorChange?'tabChange':'tabNotChange'" class="right-menu-item menu-item-nav clearfix" @click="isNavTabActive(item,index)">
+      <div v-for="(item,index) in navTab"
+           :key="item.object"
+           :class="item.isTabColorChange?'tabChange':'tabNotChange'"
+           class="right-menu-item menu-item-nav clearfix"
+           @click="isNavTabActive(item,index)">
         <svg-icon :icon-class="item.tabIcon" class="tab-svg-logo"/>
         <span>{{ item.tabName }}</span>
       </div>
